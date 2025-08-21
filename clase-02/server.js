@@ -1,60 +1,49 @@
 const http = require("http")
 
-const usuarios = [
+const cafes = [
     {
         id: 1,
-        nombre: "Juan",
-        apellido: "Perez"
+        nombre: "Café Expreso",
+        precio: 200
     },
     {
         id: 2,
-        nombre: "Pepe",
-        apellido: "Perez"
+        nombre: "Café Americano",
+        precio: "250"
     },
     {
         id: 3,
-        nombre: "Juan",
-        apellido: "Gonzalez"
-    }        
+        nombre: "Café Americano",
+        precio: 300
+    }
 ]
 
-const server = http.createServer( function(request, response){
-    console.log("Route que me envio el cliente: ", request.url)
-    response.write("<h1>Mi pagina</h1>")
-    switch( request.url ){
+const server = http.createServer(function (request, response) {
+    response.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Document</title></head>
+<body>`)
+    response.write("<h1>Mi espectacular página web!</h1>")
+    switch (request.url) {
         case "/":
-            response.write("Hola bienvenido")
-            response.write("Hola bienvenido")
+            response.write("Nombre y apellido")
             break
-        case "/usuarios":
-            // response.write("<ul>")
-            // usuarios.forEach( usuario => {
-            //     response.write(`<li>${usuario.id}-${usuario.nombre}-${usuario.apellido}</li>`)
-            // } )
-            // response.write("</ul>")
-            response.write(`<table>
-                                <tr>
-                                    <th>id</th>
-                                    <th>nombre</th>
-                                    <th>apellido</th>
-                                </tr>
-                `)
-            usuarios.forEach( usuario => {
-                response.write(`<tr>
-                        <td>${usuario.id}</td>
-                        <td>${usuario.nombre}</td>
-                        <td>${usuario.apellido}</td>
-                    </tr>`)
-            } )
-            response.write("</table>")
-            response.end("Listado usuarios")
+        case "/materia":
+            response.write("Aplicaciones hibridas")
+            break
+        case "/profesor":
+            response.write( "ññ" )
+            break
+        case "/cafes":
+            response.write("<ul>")
+            cafes.forEach( cafe => response.write( `<li>${cafe.id} - ${cafe.nombre} - ${cafe.precio}</li>` ) )
+            response.write("</ul>")
             break
         default:
-            response.end("No se encontro la ruta")
-            break    
+            response.write("No se encontro la ruta")
+            break
     }
-} )
+    response.end("</body></html>")
+})
 
-server.listen( 2025, () => {
+server.listen(2025, () => {
     console.log("Funcionando!...")
-} )
+})
