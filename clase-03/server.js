@@ -13,15 +13,26 @@ const server = http.createServer(function (request, response) {
     switch (request.url) {
         case "/":
             response.write(createPage("Home", "Nombre y apellido"))
+            response.end()
             break
         case "/materia":
             response.write(createPage("Materia", "Aplicaciones hibridas"))
+            response.end()
             break
         case "/profesor":
             response.write(createPage("Profesor", "ññ"))
+            response.end()
             break
         case "/cafes":
             response.write(createPage("Listado de cafes", createProductList(cafes)))
+            response.end()
+            break
+        case "/index.html":
+            readFile("public/index.html", function (err, data) {
+                if (err) console.error("No se encontro el archivo o no tiene permisos")
+                response.write(data)
+                response.end()
+            })
             break
         case "/contacto.html":
             readFile("public/contacto.html", function (err, data) {
@@ -37,11 +48,18 @@ const server = http.createServer(function (request, response) {
                 response.end()
             })
             break
+        case "/img/1.png":
+            readFile("public/img/1.png", function (err, data) {
+                if (err) console.error("No se encontro el archivo o no tiene permisos")
+                response.write(data)
+                response.end()
+            })
+            break
         default:
             response.write(createPage("404", "Pagian no encontrada"))
+            response.end()
             break
     }
-    // 
 })
 
 server.listen(2025, () => {
