@@ -7,9 +7,10 @@ const Detalle = () => {
     const { id } = useParams()
 
     useEffect( () => {
-        fetch("https://hp-api.onrender.com/api/character/" + id)
+        //fetch("https://hp-api.onrender.com/api/character/" + id)
+        fetch("https://pokeapi.co/api/v2/pokemon/"+id)
             .then( res => res.json() )
-            .then( character => setPesonaje(character[0]) )
+            .then( character => setPesonaje(character) )
             .catch( err => console.log(err.message) )
             .finally( () => setLoading(false) )
     }, [] )
@@ -19,7 +20,7 @@ const Detalle = () => {
     return (
         <div>
             <h1>{personaje.name}</h1>
-            <img src={personaje.image} alt="" width="200px" />
+            <img src={personaje.sprites.front_default} alt="" width="200px" />
             <Link to="/listado">Volver</Link>
         </div>
     )
